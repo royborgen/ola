@@ -33,9 +33,6 @@ def do_login():
             db_username, db_fullname, db_hashed_password, db_changepass = line.strip().split(":")
             db_hashed_password = db_hashed_password.encode('utf-8')
 
-
-            print(line)
-            print(db_changepass)
             if request.form['username'] == db_username: 
                 if bcrypt.checkpw(bytes_password, db_hashed_password):
                     session['fullname'] = db_fullname
@@ -57,10 +54,6 @@ def do_login():
 
 @app.route('/changepass', methods=['POST'])
 def changepass():
-    print (session['username'])
-    print (request.form['newpass'])
-    print (request.form['repeat_pass'])
-    
     username = session['username']
     fullname = session['fullname']
     newpass = request.form['newpass']
