@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLA - Oversikt</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+</head>
+<body>
+    <div class="topnav">
+        <h1 class="logo">OLA</h1>
+	<p id="user">Hei {{ session.fullname }}</p>
+        <div class="logout">
+            <form name="logout" method="POST" action="/logout">
+                <label>
+                    <input name="submit" type="submit" id="logout" value="LOGG UT">
+                </label>
+            </form>
+            <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="toggle dark mode">
+                <svg width="30" height="30" id="light-icon">
+                    <circle cx="15" cy="15" r="6" fill="white"></circle>
+                    <line
+                      id="ray"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      x1="15"
+                      y1="1"
+                      x2="15"
+                      y2="4"
+                    ></line>
+            
+                    <use href="#ray" transform="rotate(45 15 15)"></use>
+                    <use href="#ray" transform="rotate(90 15 15)"></use>
+                    <use href="#ray" transform="rotate(135 15 15)"></use>
+                    <use href="#ray" transform="rotate(180 15 15)"></use>
+                    <use href="#ray" transform="rotate(225 15 15)"></use>
+                    <use href="#ray" transform="rotate(270 15 15)"></use>
+                    <use href="#ray" transform="rotate(315 15 15)"></use>
+                </svg>
+                <svg width="30" height="30" id="dark-icon">
+                    <path
+                      fill="white"
+                      d="
+                      M 23, 5
+                      A 12 12 0 1 0 23, 25
+                      A 12 12 0 0 1 23, 5"
+                    ></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="search">
+        <h2>Søk i loggen</h2>
+        <form action="" method="get">
+            <label for="train_number">Tognr</label>
+            <input type="search" id="train_number" name="train_number">
+                                  
+            <label for="station">Stasjon</label>
+            <input type="search" id="station" name="station">
+           
+            <label for="from_date">Fra</label>
+            <input type="date" id="date_from" name="Fra">
+            <input type="time" id="time_from" name="Fra_tid">
+            
+            <label for="to_date">Til</label>
+            <input type="date" id="date_to" name="Til">
+            <input type="time" id="time_to" name="Til_tid">
+            
+            <button type="submit"><i class="search">Søk</i>
+        </form>
+    </div>
+
+    <div class="info">
+        <p class="serach_stats">Søket ditt ga: 1623 treff</p>
+    </div>
+
+    <div class="search_result">
+        <table id="tbl_result">
+            <tr>
+                <th></th>
+                <th>TOGNR.</th>
+                <th>DATO OG TID</th>
+                <th>STASJON</th>
+                <th>SPORNR.</th>
+                <th>SPORFELT/SIGNAL</th>
+                <th>SYSTEM</th>
+                <th>TRIGGER</th>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>1135</td>
+                <td>11/01/24 13:21:03</td>
+                <td>Oslo S</td>
+                <td>17</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Arrival</td>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>1135</td>
+                <td>11/01/24 13:21:25</td>
+                <td>Oslo S</td>
+                <td>-</td>
+                <td>240</td>
+                <td>EBICOS</td>
+                <td>Clear</td>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>1135</td>
+                <td>11/01/24 13:21:25</td>
+                <td>Oslo S</td>
+                <td>-</td>
+                <td>233</td>
+                <td>EBICOS</td>
+                <td>Occupy</td>
+            </tr>
+            <tr>
+                <td>-</td>
+                <td>1135</td>
+                <td>11/01/24 13:21:25</td>
+                <td>Oslo S</td>
+                <td>17</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Arrival</td>
+            </tr>
+              
+        </table>
+    </div>
+
+    <div class="page_result">
+        <a href="#"><<</a>
+        <a href="#"><</a>
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">></a>
+        <a href="#">>></a>
+    </div>
+    <script src="{{ url_for('static', filename='darkmode.js') }}"></script>
+</body>
+</html>

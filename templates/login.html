@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLA - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+</head>
+<body class="login">
+    <div>
+        <div class="topnav">
+            <h1 class="logo">OLA</h1>
+        </div>
+        <div class="login">
+            <h2>Logg inn</h2>
+            <form action="/main" method="POST">
+                <label for="username">Bruker</label><br>
+                <input type="username" id="input_username" name="username"><br>
+                                    
+                <label for="password">Passord</label><br>
+                <input type="password" id="input_password" name="password"><br>
+		    <p>{{ session.login_message }}</p>
+		<button type="submit" id="login">LOGG INN</button>
+            </form>
+        </div>
+</div>
+    
+</body>
+</html>
