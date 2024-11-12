@@ -1,2 +1,4 @@
 bcrypt 
 Flask 
+confluent_kafka
+datetime
