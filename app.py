@@ -4,18 +4,60 @@ import os
 import sys
 import bcrypt
 from olauser import hashpass, update_users
+from olakafka import * 
 from passcheck import is_strong_password
 
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
-
+    
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        return render_template('overview.html')
+        messages = []    
+
+        train_number  = request.form['train_number']
+        station  = request.form['station']
+        date_from  = request.form['date_from']
+        time_from  = request.form['time_from']
+        date_to  = request.form['date_to']
+        time_to  = request.form['time_to']
+        search  = request.form['search']
+        
+        
+        if date_from !="": 
+            if time_from !="":
+                date_from = date_from + " " + time_from + ":00"
+            else:
+                date_from = date_from + " " + "00:00:00"
+        if date_to !="": 
+            if time_to !="":
+                date_to = date_to + " " + time_to + ":00"
+            else: 
+                date_to = date_to + " " + "00:00:00"
+        
+        if search == "True": 
+            #kafka_message = GetKafkaMessages(date_start, date_stop)
+            with open("sample_one_hour.json", "r") as kfk_messages:
+                for line in kfk_messages:
+                    messages.append(json.loads(line))
+            kfk_messages.close()
+            
+        if kfk_messages: 
+            result = True
+            
+            #for line in kfka_message:
+            #    message.append(json.load(line))
+        
+
+        searchfilter = {'trainnumber':train_number, 'station':station, 'date_from':date_from, 'date_to':date_to}
+        
+        #filter the data and make i readable for humans
+        filteredData = filterKafkaMessages(messages, searchfilter)
+
+        return render_template('overview.html', messages=filteredData, result=result)
 
 
 @app.route('/main', methods=['POST'])
