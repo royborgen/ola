@@ -2,3 +2,7 @@ __pycache__/
 venv/
 design/
 /users
+/sample_full_day.json
+/sample_one_hour.json
+/config.py
+/.gitignore
