@@ -57,25 +57,25 @@
 
     <div class="search">
         <h2>Søk i loggen</h2>
-        <form action="" method="get">
+        <form action="/" method="POST">
             <label for="train_number">Tognr</label>
-            <input type="search" id="train_number" name="train_number">
+            <input type="search" id="input_train_number" name="train_number" value="{{ request.form['train_number'] }}">
                                   
             <label for="station">Stasjon</label>
-            <input type="search" id="station" name="station">
+            <input type="search" id="input_station" name="station" value="{{ request.form['station'] }}">
            
             <label for="from_date">Fra</label>
-            <input type="date" id="date_from" name="Fra">
-            <input type="time" id="time_from" name="Fra_tid">
+            <input type="date" id="input_date_from" name="date_from" value="{{ request.form['date_from'] }}">
+            <input type="time" id="input_time_from" name="time_from" value="{{ request.form['time_from'] }}">
             
             <label for="to_date">Til</label>
-            <input type="date" id="date_to" name="Til">
-            <input type="time" id="time_to" name="Til_tid">
+            <input type="date" id="input_date_to" name="date_to" value="{{ request.form['date_to'] }}">
+            <input type="time" id="input_time_to" name="time_to" value="{{ request.form['time_to'] }}">
             
-            <button type="submit"><i class="search">Søk</i>
+            <button name="search" type="submit" value="True"><i class="search">Søk</i>
         </form>
     </div>
-
+    {% if result %}	
     <div class="info">
         <p class="serach_stats">Søket ditt ga: 1623 treff</p>
     </div>
@@ -83,57 +83,28 @@
     <div class="search_result">
         <table id="tbl_result">
             <tr>
-                <th></th>
-                <th>TOGNR.</th>
                 <th>DATO OG TID</th>
+                <th>TOGNR.</th>
                 <th>STASJON</th>
                 <th>SPORNR.</th>
                 <th>SPORFELT/SIGNAL</th>
                 <th>SYSTEM</th>
                 <th>TRIGGER</th>
+                <th>BESKRIVELSE</th>
             </tr>
-            <tr>
-                <td>-</td>
-                <td>1135</td>
-                <td>11/01/24 13:21:03</td>
-                <td>Oslo S</td>
-                <td>17</td>
-                <td>-</td>
-                <td>-</td>
-                <td>Arrival</td>
-            </tr>
-            <tr>
-                <td>-</td>
-                <td>1135</td>
-                <td>11/01/24 13:21:25</td>
-                <td>Oslo S</td>
-                <td>-</td>
-                <td>240</td>
-                <td>EBICOS</td>
-                <td>Clear</td>
-            </tr>
-            <tr>
-                <td>-</td>
-                <td>1135</td>
-                <td>11/01/24 13:21:25</td>
-                <td>Oslo S</td>
-                <td>-</td>
-                <td>233</td>
-                <td>EBICOS</td>
-                <td>Occupy</td>
-            </tr>
-            <tr>
-                <td>-</td>
-                <td>1135</td>
-                <td>11/01/24 13:21:25</td>
-                <td>Oslo S</td>
-                <td>17</td>
-                <td>-</td>
-                <td>-</td>
-                <td>Arrival</td>
-            </tr>
-              
-        </table>
+	    {% for line in messages %}
+	    <tr>
+		<td>{{ line.time }}</td>
+		<td>{{ line.trainnumber }}</td>
+		<td>{{ line.station }}</td>
+		<td>{{ line.track }}</td>
+		<td>{{ line.signal }}</td>
+		<td>{{ line.system }}</td>
+		<td>{{ line.trigger }}</td>
+		<td>{{ line.description }}</td>
+	    </tr>
+	    {% endfor %}
+	</table>
     </div>
 
     <div class="page_result">
@@ -146,6 +117,7 @@
         <a href="#">></a>
         <a href="#">>></a>
     </div>
+    {% endif %}
     <script src="{{ url_for('static', filename='darkmode.js') }}"></script>
 </body>
 </html>
