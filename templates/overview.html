@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OLA - Oversikt</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'> -->
 </head>
 <body>
     <div class="topnav">
@@ -77,7 +77,7 @@
     </div>
     {% if result %}	
     <div class="info">
-        <p class="serach_stats">Søket ditt ga: 1623 treff</p>
+    <!--<p class="serach_stats">Søket ditt ga: 1623 treff</p>-->
     </div>
 
     <div class="search_result">
@@ -107,7 +107,7 @@
 	</table>
     </div>
 
-    <div class="page_result">
+<!--    <div class="page_result">
         <a href="#"><<</a>
         <a href="#"><</a>
         <a href="#">1</a>
@@ -115,8 +115,8 @@
         <a href="#">3</a>
         <a href="#">4</a>
         <a href="#">></a>
-        <a href="#">>></a>
-    </div>
+	<a href="#">>></a>
+    </div> -->
     {% endif %}
     <script src="{{ url_for('static', filename='darkmode.js') }}"></script>
 </body>

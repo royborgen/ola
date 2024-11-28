@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    
+    result = False
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
@@ -38,23 +38,27 @@ def home():
             else: 
                 date_to = date_to + " " + "00:00:00"
         
+        date_from = datetime.strptime(date_from, "%Y-%m-%d %H:%M:%S") 
+        date_to = datetime.strptime(date_to, "%Y-%m-%d %H:%M:%S") 
+        #date_from = converttime(date_from, "user")
+        #date_to = converttime(date_from, "user")
+        
         if search == "True": 
-            #kafka_message = GetKafkaMessages(date_start, date_stop)
-            with open("sample_one_hour.json", "r") as kfk_messages:
-                for line in kfk_messages:
-                    messages.append(json.loads(line))
-            kfk_messages.close()
+            kfk_messages = GetKafkaMessages(date_from, date_to)
+            #with open("sample_one_hour.json", "r") as kfk_messages:
+            #    for line in kfk_messages:
+            #        messages.append(json.loads(line))
+            #kfk_messages.close()
             
         if kfk_messages: 
             result = True
             
-            #for line in kfka_message:
-            #    message.append(json.load(line))
+            for line in kfk_messages:
+                messages.append(json.loads(line))
+        print(date_from)
+        searchfilter = {'trainnumber':train_number, 'station':station, 'date_from':str(date_from), 'date_to':str(date_to)}
         
-
-        searchfilter = {'trainnumber':train_number, 'station':station, 'date_from':date_from, 'date_to':date_to}
-        
-        #filter the data and make i readable for humans
+        #filter the data an make i readable for humans
         filteredData = filterKafkaMessages(messages, searchfilter)
 
         return render_template('overview.html', messages=filteredData, result=result)
