@@ -401,7 +401,7 @@ def filterKafkaMessages(messages, searchfilter):
                     trigger = line["type"]
                     track = "-"
                     signal = "-"
-                    
+                    stationShort = "-"
                     #Returning only "LeaveReported" and "OccupyReported"
                     if trigger == "ApproachTriggered" or trigger == "LeaveReported" or trigger == "OccupyReported" :
                         track = "-"
@@ -465,16 +465,16 @@ def filterKafkaMessages(messages, searchfilter):
 
 def main(): 
     # Set up your timestamps
-    date_start  = datetime(2024, 11, 8, 9, 0, 0) #year, month, day, hour, minute, seconds
-    date_stop = datetime(2024, 11, 8, 9, 15, 0)
+    date_start  = datetime(2024, 11, 21, 9, 0, 0) #year, month, day, hour, minute, seconds
+    date_stop = datetime(2024, 11, 21, 9, 15, 0)
     #searchfilter = {'trainnumber':"2838", 'station':"Oslo", 'date_from': '2024-10-09 13:30:00', 'date_to': '2024-10-09 13:53:00'}
     searchfilter = {'trainnumber':"", 'station':"Oslo", 'date_from': '', 'date_to': ''}
     
 
 
     #Fetching messages from Kafka
-    kafka_messages = "local json"
-    #kafka_messages = GetKafkaMessages(date_start, date_stop)
+    #kafka_messages = "local json"
+    kafka_messages = GetKafkaMessages(date_start, date_stop)
     
     #A list to hold data from kafka
     messages = []
