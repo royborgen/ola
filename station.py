@@ -1,6 +1,8 @@
 #!./venv/bin/python3
+# This script looks up a train station name based on it's short form from stations.json
 import sys
 import json
+
 
 def getStationName(shortform):
     with open("stations.json", "r") as file: 
